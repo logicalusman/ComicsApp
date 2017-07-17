@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComicDetails {
+public class ComicItem {
 
     private String thumbnail;
     private String title;
@@ -15,7 +15,7 @@ public class ComicDetails {
     private double price;
     private List<String> authors;
 
-    public ComicDetails() {
+    public ComicItem() {
     }
 
     public String getThumbnail() {
