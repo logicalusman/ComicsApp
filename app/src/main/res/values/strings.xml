@@ -16,7 +16,7 @@
     <string name="action_description">Description</string>
     <string name="action_filter">Filter</string>
     <string name="total_number_of_comic_pages">Total number of comic pages:</string>
-    <string name="enter_buying_price">Enter buying price</string>
+    <string name="enter_your_budget">Enter your budget</string>
     <string name="cancel">Cancel</string>
 
 </resources>

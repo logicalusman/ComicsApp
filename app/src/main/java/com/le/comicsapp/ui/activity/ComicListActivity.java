@@ -91,7 +91,7 @@ public class ComicListActivity extends CommonActivity {
 
     private void inputPrice() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.enter_buying_price).setCancelable(false);
+        builder.setMessage(R.string.enter_your_budget).setCancelable(false);
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(input);
