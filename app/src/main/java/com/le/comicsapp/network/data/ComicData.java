@@ -10,6 +10,7 @@ public class ComicData {
     public int id;
     public String title;
     public String description;
+    public int pageCount;
     public List<ComicPrice> prices;
     public ComicThumbnail thumbnail;
     @SerializedName("creators")
