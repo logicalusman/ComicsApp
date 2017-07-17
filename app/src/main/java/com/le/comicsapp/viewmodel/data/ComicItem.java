@@ -26,6 +26,7 @@ public class ComicItem implements Parcelable {
         thumbnail = in.readString();
         numPages = in.readInt();
         price = in.readDouble();
+        authors = new ArrayList<>();
         in.readStringList(authors);
     }
 
@@ -41,7 +42,9 @@ public class ComicItem implements Parcelable {
         out.writeString(thumbnail);
         out.writeInt(numPages);
         out.writeDouble(price);
-        out.writeStringList(authors);
+        if (authors != null) {
+            out.writeStringList(authors);
+        }
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
