@@ -14,7 +14,7 @@ public class CommonActivity extends AppCompatActivity {
 
         mProcessingDialog = new ProgressDialog(this);
         mProcessingDialog.setMessage(message);
-        mProcessingDialog.setCancelable(true);
+        mProcessingDialog.setCancelable(false);
         mProcessingDialog.show();
     }
 
