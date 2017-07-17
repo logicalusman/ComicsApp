@@ -13,5 +13,7 @@
     <string name="price">Price</string>
     <string name="number_of_pages">Number of Pages</string>
     <string name="authors">Authors</string>
+    <string name="action_description">Description</string>
+    <string name="action_filter">Filter</string>
 
 </resources>
