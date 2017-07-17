@@ -1,12 +1,14 @@
 package com.le.comicsapp.viewmodel.data;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComicItem {
+public class ComicItem implements Parcelable {
 
     private String thumbnail;
     private String title;
@@ -17,6 +19,41 @@ public class ComicItem {
 
     public ComicItem() {
     }
+
+    private ComicItem(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        thumbnail = in.readString();
+        numPages = in.readInt();
+        price = in.readDouble();
+        in.readStringList(authors);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int i) {
+        out.writeString(title);
+        out.writeString(description);
+        out.writeString(thumbnail);
+        out.writeInt(numPages);
+        out.writeDouble(price);
+        out.writeStringList(authors);
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public ComicItem createFromParcel(Parcel in) {
+            return new ComicItem(in);
+        }
+
+        public ComicItem[] newArray(int size) {
+            return new ComicItem[size];
+        }
+    };
+
 
     public String getThumbnail() {
         return thumbnail;
@@ -73,4 +110,6 @@ public class ComicItem {
     public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
+
+
 }
