@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ComicsApp</string>
+    <string name="unable_to_connect">Unable to connect</string>
+    <string name="internet_connection_alert">Please check your device for a valid internet connection. </string>
+    <string name="unknown_error">Unknown error, please try again later.</string>
+    <string name="ok">OK</string>
+    <string name="error">Error</string>
+
 </resources>
