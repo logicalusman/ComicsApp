@@ -8,5 +8,10 @@
     <string name="fetching_comic_list">Fetching Comic list ...</string>
     <string name="no_comic_items_found">No Comic items found. Please try again later.</string>
     <string name="comic_details">Comic Details</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="number_of_pages">Number of Pages</string>
+    <string name="authors">Authors</string>
 
 </resources>
