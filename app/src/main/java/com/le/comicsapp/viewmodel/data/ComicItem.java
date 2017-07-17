@@ -16,6 +16,7 @@ public class ComicItem implements Parcelable {
     private int numPages;
     private double price;
     private List<String> authors;
+    private StringBuffer authorsString;
 
     public ComicItem() {
     }
@@ -110,8 +111,18 @@ public class ComicItem implements Parcelable {
         authors.add(author);
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public String getAuthorsString() {
+
+        if (authors == null || authors.isEmpty()) {
+            return "";
+        } else {
+            authorsString = new StringBuffer();
+            for (String author : authors) {
+                authorsString.append(author);
+                authorsString.append(" , ");
+            }
+        }
+        return authorsString.toString().substring(0, authorsString.toString().trim().length() - 1);
     }
 
 
