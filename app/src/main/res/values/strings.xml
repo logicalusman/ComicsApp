@@ -5,5 +5,6 @@
     <string name="unknown_error">Unknown error, please try again later.</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
+    <string name="fetching_comic_list">Fetching Comic list ...</string>
 
 </resources>
