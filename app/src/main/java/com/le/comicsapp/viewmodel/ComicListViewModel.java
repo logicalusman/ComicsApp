@@ -31,7 +31,7 @@ public class ComicListViewModel extends AndroidViewModel {
     private Subscription mSubscription;
     private boolean mComicsRequested;
     private List<ComicItem> mComicItemsList;
-    private int numPages = 0;
+    private int mNumPages = 0;
 
     public ComicListViewModel(Application application) {
         super(application);
@@ -66,6 +66,7 @@ public class ComicListViewModel extends AndroidViewModel {
         String ts = "1500299975613";
         String hash = Utils.md5HashOf(String.format("%s%s%s", ts, apiPriKey, apiPubkey));
 
+
         mSubscription = apiService.getComics(apiPubkey, ts, hash, limit).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                         (response) -> {
@@ -91,13 +92,35 @@ public class ComicListViewModel extends AndroidViewModel {
                         }
                 );
 
+
     }
 
     /**
      * @return the total sum of pages for each comic in the comic list
      */
     public int getNumPages() {
-        return numPages;
+        return mNumPages;
+    }
+
+    public void filterComicList(@NonNull Double budget) {
+
+        if (mComicItemsList != null && !mComicItemsList.isEmpty()) {
+            List<ComicItem> filteredList = new ArrayList<>();
+            double price = 0;
+            mNumPages = 0;
+            for (ComicItem item : mComicItemsList) {
+                price += item.getPrice();
+                // its important to navigate through all items
+                // as some items are zero priced
+                if (item.getPrice() == 0 || price <= budget) {
+                    filteredList.add(item);
+                }
+
+                mNumPages += item.getNumPages();
+            }
+            mComicItemsSubject.onNext(filteredList);
+        }
+
     }
 
     private List<ComicItem> processComicData(@NonNull GetComicsResponse response) {
@@ -108,7 +131,7 @@ public class ComicListViewModel extends AndroidViewModel {
             ci.setTitle(data.title);
             ci.setDescription(data.description);
             ci.setNumPages(data.pageCount);
-            numPages += data.pageCount;
+            mNumPages += data.pageCount;
             if (data.prices != null && !data.prices.isEmpty()) {
                 ci.setPrice(data.prices.get(0).price);
             }

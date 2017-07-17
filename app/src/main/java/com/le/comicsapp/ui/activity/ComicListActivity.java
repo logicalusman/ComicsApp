@@ -83,13 +83,13 @@ public class ComicListActivity extends CommonActivity {
             msg = String.format("%s %d", msg, mViewModel.getNumPages());
             mAlertDialog = UiUtils.showDialog(this, null, msg);
         } else if (id == R.id.action_filter) {
-            inputPrice();
+            getBudgetPriceFromUser();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void inputPrice() {
+    private void getBudgetPriceFromUser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.enter_your_budget).setCancelable(false);
         final EditText input = new EditText(this);
@@ -97,6 +97,11 @@ public class ComicListActivity extends CommonActivity {
         builder.setView(input);
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             String value = input.getText().toString();
+            try {
+                Double budget = Double.parseDouble(value);
+                mViewModel.filterComicList(budget);
+            } catch (NumberFormatException e) {
+            }
         });
         builder.setNegativeButton(R.string.cancel, null);
         mAlertDialog = builder.create();
