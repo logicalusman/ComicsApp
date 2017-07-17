@@ -5,5 +5,7 @@
     <string name="marvel_api_pub_key">54306733de0f5cd1418aa05a85fa062a</string>
     <string name="marvel_api_pri_key">5de1fabcda2ea08912bd8b09bca4321f50563655</string>
     <integer name="comics_limit">100</integer>
+    <string name="for_integer">%d</string>
+    <string name="for_double">%.02f</string>
 
 </resources>
