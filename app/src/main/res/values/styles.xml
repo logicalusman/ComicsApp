@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ComicListItemTitle">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="ComicListItemImage">
+        <item name="android:layout_height">100dp</item>
+    </style>
+
 </resources>
