@@ -15,13 +15,13 @@ import com.le.comicsapp.R;
  */
 public class UiUtils {
 
-    public static void showDialog(@NonNull Context ctx, String title, @NonNull String msg) {
+    public static AlertDialog showDialog(@NonNull Context ctx, String title, @NonNull String msg) {
 
-        showDialog(ctx, title, msg, false);
+        return showDialog(ctx, title, msg, false);
 
     }
 
-    public static void showDialog(@NonNull Context ctx, @Nullable String title, @NonNull String msg, boolean cancelable) {
+    public static AlertDialog showDialog(@NonNull Context ctx, @Nullable String title, @NonNull String msg, boolean cancelable) {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx).setCancelable(false).setMessage(msg).
@@ -31,15 +31,17 @@ public class UiUtils {
             builder.setTitle(title);
         }
 
-        builder.create().show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return alertDialog;
     }
 
-    public static void showConnectionAlertErrDialog(@NonNull Context ctx) {
-        showDialog(ctx, ctx.getString(R.string.unable_to_connect), ctx.getString(R.string.internet_connection_alert));
+    public static AlertDialog showConnectionAlertErrDialog(@NonNull Context ctx) {
+        return showDialog(ctx, ctx.getString(R.string.unable_to_connect), ctx.getString(R.string.internet_connection_alert));
     }
 
-    public static void showUnknownErrDialog(@NonNull Context ctx) {
-        showDialog(ctx, ctx.getString(R.string.error), ctx.getString(R.string.unknown_error));
+    public static AlertDialog showUnknownErrDialog(@NonNull Context ctx) {
+        return showDialog(ctx, ctx.getString(R.string.error), ctx.getString(R.string.unknown_error));
     }
 
 }

@@ -10,6 +10,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,7 +35,7 @@ public class ComicListActivity extends CommonActivity {
     private ComicListViewModel mViewModel;
     private ComicListAdapter mComicListAdapter;
     private Subscription mSubscription;
-    private AlertDialog mAlertDialog;
+    private AlertDialog mAlertDialog, mErrorDialog;
 
 
     @Override
@@ -64,6 +66,28 @@ public class ComicListActivity extends CommonActivity {
         mComicList.setAdapter(mComicListAdapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.comic_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_desc) {
+            String msg = getString(R.string.total_number_of_comic_pages);
+            msg = String.format("%s %d", msg, mViewModel.getNumPages());
+            mAlertDialog = UiUtils.showDialog(this, null, msg);
+        } else if (id == R.id.action_filter) {
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private class ComicListSubscriber extends Subscriber<List<ComicItem>> {
 
         @Override
@@ -88,9 +112,9 @@ public class ComicListActivity extends CommonActivity {
             if (e instanceof AppError) {
                 AppError err = (AppError) e;
                 if (err.getError() == AppError.ERROR_INTERNET_CONNECTION) {
-                    UiUtils.showConnectionAlertErrDialog(ComicListActivity.this);
+                    mErrorDialog = UiUtils.showConnectionAlertErrDialog(ComicListActivity.this);
                 } else {
-                    UiUtils.showUnknownErrDialog(ComicListActivity.this);
+                    mErrorDialog = UiUtils.showUnknownErrDialog(ComicListActivity.this);
                 }
             }
         }
@@ -170,13 +194,17 @@ public class ComicListActivity extends CommonActivity {
         // This will make sure the dialog is dismissed when the activity finishes while
         // the dialog is in progress, e.g. when the screen is rotated.
         dismissProcessingDialog();
-        if (mAlertDialog != null && mAlertDialog.isShowing()) {
-            mAlertDialog.dismiss();
-            mAlertDialog = null;
-        }
+        dismissDialog(mAlertDialog);
+        dismissDialog(mErrorDialog);
         if (mSubscription != null) {
             mSubscription.unsubscribe();
             mSubscription = null;
+        }
+    }
+
+    private void dismissDialog(AlertDialog alertDialog) {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
         }
     }
 }

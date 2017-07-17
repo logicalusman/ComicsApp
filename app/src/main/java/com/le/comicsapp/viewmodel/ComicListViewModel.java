@@ -31,6 +31,7 @@ public class ComicListViewModel extends AndroidViewModel {
     private Subscription mSubscription;
     private boolean mComicsRequested;
     private List<ComicItem> mComicItemsList;
+    private int numPages = 0;
 
     public ComicListViewModel(Application application) {
         super(application);
@@ -92,6 +93,13 @@ public class ComicListViewModel extends AndroidViewModel {
 
     }
 
+    /**
+     * @return the total sum of pages for each comic in the comic list
+     */
+    public int getNumPages() {
+        return numPages;
+    }
+
     private List<ComicItem> processComicData(@NonNull GetComicsResponse response) {
 
         List<ComicItem> items = new ArrayList<>(response.responseData.comicDataList.size());
@@ -100,6 +108,7 @@ public class ComicListViewModel extends AndroidViewModel {
             ci.setTitle(data.title);
             ci.setDescription(data.description);
             ci.setNumPages(data.pageCount);
+            numPages += data.pageCount;
             if (data.prices != null && !data.prices.isEmpty()) {
                 ci.setPrice(data.prices.get(0).price);
             }

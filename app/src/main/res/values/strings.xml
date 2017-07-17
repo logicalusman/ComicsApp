@@ -15,5 +15,6 @@
     <string name="authors">Authors</string>
     <string name="action_description">Description</string>
     <string name="action_filter">Filter</string>
+    <string name="total_number_of_comic_pages">Total number of comic pages:</string>
 
 </resources>
