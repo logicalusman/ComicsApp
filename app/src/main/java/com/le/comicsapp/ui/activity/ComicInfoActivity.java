@@ -1,10 +1,12 @@
 package com.le.comicsapp.ui.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.le.comicsapp.R;
+import com.le.comicsapp.databinding.ActivityComicInfoBinding;
 import com.le.comicsapp.viewmodel.data.ComicItem;
 
 public class ComicInfoActivity extends AppCompatActivity {
@@ -13,11 +15,11 @@ public class ComicInfoActivity extends AppCompatActivity {
     private ComicItem mComicItem;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic_info);
         mComicItem = getIntent().getParcelableExtra(EXTRA_COMIC_ITEM);
+        ActivityComicInfoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_comic_info);
+        binding.setItem(mComicItem);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.comic_details);
     }
