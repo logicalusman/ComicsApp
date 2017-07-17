@@ -1,8 +1,10 @@
 package com.le.comicsapp.ui.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -129,13 +131,27 @@ public class ComicListActivity extends CommonActivity {
 
             private TextView mTitleTv;
             private ImageView mThumbnailIv;
+            private ConstraintLayout mRootLayoutCl;
 
             public VH(View v) {
                 super(v);
+                mRootLayoutCl = (ConstraintLayout) v.findViewById(R.id.root_layout_cl);
                 mTitleTv = (TextView) v.findViewById(R.id.title_tv);
                 mThumbnailIv = (ImageView) v.findViewById(R.id.thumbnail_iv);
+
+                mRootLayoutCl.setOnClickListener((view) -> {
+                    int pos = getAdapterPosition();
+                    ComicItem ci = mComicItemsList.get(pos);
+                    launchComicInfoActivity(ci);
+                });
             }
         }
+    }
+
+    public void launchComicInfoActivity(@NonNull ComicItem item) {
+        Intent i = new Intent(this, ComicInfoActivity.class);
+        i.putExtra(ComicInfoActivity.EXTRA_COMIC_ITEM, item);
+        startActivity(i);
     }
 
     private void showNoItemFoundDialog() {
@@ -156,6 +172,7 @@ public class ComicListActivity extends CommonActivity {
         dismissProcessingDialog();
         if (mAlertDialog != null && mAlertDialog.isShowing()) {
             mAlertDialog.dismiss();
+            mAlertDialog = null;
         }
         if (mSubscription != null) {
             mSubscription.unsubscribe();
