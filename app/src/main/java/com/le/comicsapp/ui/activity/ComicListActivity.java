@@ -9,11 +9,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,12 +83,25 @@ public class ComicListActivity extends CommonActivity {
             msg = String.format("%s %d", msg, mViewModel.getNumPages());
             mAlertDialog = UiUtils.showDialog(this, null, msg);
         } else if (id == R.id.action_filter) {
-
+            inputPrice();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void inputPrice() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.enter_buying_price).setCancelable(false);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setView(input);
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+            String value = input.getText().toString();
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        mAlertDialog = builder.create();
+        mAlertDialog.show();
+    }
 
     private class ComicListSubscriber extends Subscriber<List<ComicItem>> {
 
