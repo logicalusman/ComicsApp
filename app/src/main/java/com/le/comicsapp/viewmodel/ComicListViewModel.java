@@ -24,6 +24,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 
+/**
+ * ViewModel for the ComicListActivity. It fetches, processes, and caches data retrieved via network
+ * interface and feeds the necessary bits, required by the UI to display, to the ComicListActivity.
+ * Moreover, it handles UI operations such as filtering the comic list and displaying sum of number
+ * of pages in the comic list.
+ *
+ * @author Usman
+ */
 public class ComicListViewModel extends AndroidViewModel {
 
     private String TAG = "ComicListViewModel";

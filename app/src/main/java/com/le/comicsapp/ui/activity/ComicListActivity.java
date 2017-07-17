@@ -31,6 +31,12 @@ import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
 
+/**
+ * Displays comic list. The UI for comic list is mostly dumb and is meant to rely on
+ * its viewmodel for majority of its work.
+ *
+ * @author
+ */
 public class ComicListActivity extends CommonActivity {
 
     private RecyclerView mComicList;
