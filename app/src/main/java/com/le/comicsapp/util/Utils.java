@@ -19,7 +19,11 @@ public class Utils {
             // Make it a hex string
             StringBuffer hexString = new StringBuffer();
             for (int i = 0; i < digestBytes.length; i++) {
-                hexString.append(Integer.toHexString(0xFF & digestBytes[i]));
+                String h = Integer.toHexString(0xFF & digestBytes[i]);
+                if (h.length() < 2) {
+                    h = "0" + h;
+                }
+                hexString.append(h);
             }
             return hexString.toString();
 
