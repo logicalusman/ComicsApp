@@ -62,16 +62,7 @@ public class ComicListViewModel extends AndroidViewModel {
         String apiPubkey = getApplication().getString(R.string.marvel_api_pub_key);
         String apiPriKey = getApplication().getString(R.string.marvel_api_pri_key);
         int limit = getApplication().getResources().getInteger(R.integer.comics_limit);
-        /**
-         * Strangely, changing timestamp every time (request) is not accepted by the marvell api.
-         * TODO:
-         * Timestamp hardcoded as of yet. It needs to be resolved later to the following,
-         *
-         * String ts = String.format("%d", System.currentTimeMillis());
-         */
-        // hardcoding timestamp, it should be a different value for each request, so that a
-        // a different hash can be generated.
-        String ts = "1500299975613";
+        String ts = String.format("%d", System.currentTimeMillis());
         String hash = Utils.md5HashOf(String.format("%s%s%s", ts, apiPriKey, apiPubkey));
 
 
