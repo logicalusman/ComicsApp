@@ -1,4 +1,4 @@
-# ComicsApp
+# ComicsApp - An illustration of implementing MVVM in an Android app
 The app fetches comics from the [Marvel](https://developer.marvel.com) api and shows them in the list. The list represents each
 comic by displaying its title and image. You can see further details of a comic once you click on it. Moreover, you can filter
 out the comic list by input your buying budget, the app will then show the list of comics within your budget range. You can also
@@ -8,7 +8,7 @@ see the sum of pages of the comics in your list.
 Architecturely, the app implements MVVM pattern to bind its UI to other components. It makes use of RxJava along with 
 [AndroidViewModel](https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html) to implement MVVM - 
 the ViewModel support library was announced as part of the 
-[architecture components](https://developer.android.com/topic/libraries/architecture/index.html).
+[architecture components](https://developer.android.com/topic/libraries/architecture/index.html) at Google IO 2017.
 The network interface uses Retrofit2 and RxJava.
 
 Note that in order to use the archiecture components sdk, you should use Android Studio 3.0.
