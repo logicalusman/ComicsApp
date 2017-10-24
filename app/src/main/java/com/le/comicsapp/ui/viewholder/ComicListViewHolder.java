@@ -40,7 +40,6 @@ public class ComicListViewHolder extends RecyclerView.ViewHolder {
         mThumbnailIv = (ImageView) v.findViewById(R.id.thumbnail_iv);
 
         mRootLayoutCl.setOnClickListener((view) -> {
-            int pos = getAdapterPosition();
             mListener.onComicItemRowClicked(mComicItem);
         });
     }
