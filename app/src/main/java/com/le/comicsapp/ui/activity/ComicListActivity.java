@@ -4,23 +4,18 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.le.comicsapp.R;
+import com.le.comicsapp.ui.adapter.ComicListAdapter;
+import com.le.comicsapp.ui.viewholder.ComicListViewHolder;
 import com.le.comicsapp.util.UiUtils;
 import com.le.comicsapp.viewmodel.ComicListViewModel;
 import com.le.comicsapp.viewmodel.data.AppError;
@@ -37,7 +32,7 @@ import rx.Subscription;
  *
  * @author
  */
-public class ComicListActivity extends CommonActivity {
+public class ComicListActivity extends CommonActivity implements ComicListViewHolder.ComicListListener {
 
     private RecyclerView mComicList;
     private ComicListViewModel mViewModel;
@@ -70,7 +65,7 @@ public class ComicListActivity extends CommonActivity {
     }
 
     private void populateComicList(List<ComicItem> comicItemsList) {
-        mComicListAdapter = new ComicListAdapter(comicItemsList);
+        mComicListAdapter = new ComicListAdapter(this, comicItemsList, this);
         mComicList.setAdapter(mComicListAdapter);
     }
 
@@ -114,6 +109,11 @@ public class ComicListActivity extends CommonActivity {
         mAlertDialog.show();
     }
 
+    @Override
+    public void onComicItemRowClicked(ComicItem comicItem) {
+        launchComicInfoActivity(comicItem);
+    }
+
     private class ComicListSubscriber extends Subscriber<List<ComicItem>> {
 
         @Override
@@ -142,58 +142,6 @@ public class ComicListActivity extends CommonActivity {
                 } else {
                     mErrorDialog = UiUtils.showUnknownErrDialog(ComicListActivity.this);
                 }
-            }
-        }
-    }
-
-    private class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.VH> {
-
-        private List<ComicItem> mComicItemsList;
-
-        public ComicListAdapter(@NonNull List<ComicItem> comicItemsList) {
-            mComicItemsList = comicItemsList;
-        }
-
-
-        @Override
-        public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(ComicListActivity.this).inflate(R.layout.comic_item_row, parent, false);
-            return new VH(v);
-        }
-
-        @Override
-        public void onBindViewHolder(VH holder, int position) {
-            ComicItem item = mComicItemsList.get(position);
-            holder.mTitleTv.setText(item.getTitle());
-            Glide.with(ComicListActivity.this).load(item.getThumbnail()).into(holder.mThumbnailIv);
-        }
-
-        @Override
-        public int getItemCount() {
-            if (mComicItemsList == null) {
-                return 0;
-            } else {
-                return mComicItemsList.size();
-            }
-        }
-
-        class VH extends RecyclerView.ViewHolder {
-
-            private TextView mTitleTv;
-            private ImageView mThumbnailIv;
-            private ConstraintLayout mRootLayoutCl;
-
-            public VH(View v) {
-                super(v);
-                mRootLayoutCl = (ConstraintLayout) v.findViewById(R.id.root_layout_cl);
-                mTitleTv = (TextView) v.findViewById(R.id.title_tv);
-                mThumbnailIv = (ImageView) v.findViewById(R.id.thumbnail_iv);
-
-                mRootLayoutCl.setOnClickListener((view) -> {
-                    int pos = getAdapterPosition();
-                    ComicItem ci = mComicItemsList.get(pos);
-                    launchComicInfoActivity(ci);
-                });
             }
         }
     }
